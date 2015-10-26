@@ -1,6 +1,6 @@
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
-    prefix:   /Rezo/user/
+    prefix:   /Rezo/user/profil/
 
 core:
     resource: "@CoreBundle/Resources/config/routing.yml"

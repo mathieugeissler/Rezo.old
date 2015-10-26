@@ -20,7 +20,7 @@
             </h2>
 
             <p class="lead">
-                by <a href="index.php">{{ post.author }}</a>
+                by <a href="{{ path('user_profil_name', { username: post.author }) }}">{{ post.author }}</a>
             </p>
 
             <p><span class="glyphicon glyphicon-time"></span> Posted on {{ post.date|date('d M Y H:m:s', 'Europe/Paris') }}</p>

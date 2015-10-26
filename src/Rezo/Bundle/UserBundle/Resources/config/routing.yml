@@ -1,0 +1,9 @@
+user_profil_id:
+    path:     /{id}
+    defaults: { _controller: UserBundle:User:index }
+    requirements:
+        id:    \d+
+
+user_profil_name:
+    path:     /{username}
+    defaults: { _controller: UserBundle:User:index }

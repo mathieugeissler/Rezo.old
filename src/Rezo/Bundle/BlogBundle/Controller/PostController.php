@@ -2,6 +2,7 @@
 
 namespace Rezo\Bundle\BlogBundle\Controller;
 
+use Proxies\__CG__\Rezo\Bundle\UserBundle\Entity\User;
 use Rezo\Bundle\BlogBundle\Entity\Post;
 use Rezo\Bundle\BlogBundle\Form\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -24,17 +25,18 @@ class PostController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
-
+        $user= $this->getUser();
         $post = new Post();
         $form = $this->createForm(new PostType(), $post);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $post->setAuthor($user);
             $em->persist($post);
             $em->flush();
 
-            $this->addFlash('info', 'Ajout effectué');
+            $this->addFlash('info', 'Ajout effectuÃ©e');
         }
 
         $posts = $em->getRepository("BlogBundle:Post")->findAll();
@@ -61,7 +63,7 @@ class PostController extends Controller
             $em->persist($post);
             $em->flush();
 
-            $this->addFlash('info', 'Edition effectuée');
+            $this->addFlash('info', 'Edition effectuÃ©e');
         }
 
         $posts = $em->getRepository("BlogBundle:Post")->findAll();
