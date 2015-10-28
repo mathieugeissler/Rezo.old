@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Rezo\Bundle\BlogBundle\BlogBundle(),
             new Rezo\Bundle\CoreBundle\CoreBundle(),
             new Rezo\Bundle\UserBundle\UserBundle(),
+            new Rezo\Bundle\AdminBundle\AdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -10,6 +10,10 @@ class UserController extends Controller
 
     public function indexAction(User $user)
     {
+        if(is_null($user)) {
+            $user = $this->getUser();
+        }
+        dump($user->getRoles());
         return $this->render('UserBundle:User:index.html.twig', array(
             'user' => $user,
         ));
