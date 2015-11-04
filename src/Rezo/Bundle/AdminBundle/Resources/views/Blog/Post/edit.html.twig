@@ -1,0 +1,66 @@
+{% extends "CoreBundle::layout.html.twig" %}
+
+{% block body %}
+    <div class="container">
+        <h1>Post</h1>
+
+        <div class="col-sm-offset-1 col-sm-10">
+            <div class="well">
+                    {{ form_start(form, {'attr': {'action': '{{ path("admin_blog_post_add") }}', 'class': 'form-horizontal'}}) }}
+
+                {{ form_errors(form) }}
+                <fieldset>
+                    <div class="form-group">
+                        {{ form_widget(form.title, {'attr': {'placeholder' : 'Title', 'class': 'form-control floating-label'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    {{ form_rest(form) }}
+                    <div class="form-group text-right">
+                        <button id="save" type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </fieldset>
+                {{ form_end(form) }}
+            </div>
+        </div>
+        <table id="PostsTable" class="table table-striped table-hover text-center">
+            <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">Title</th>
+                <th class="text-center">Action</th>
+            </tr>
+            </thead>
+            <tbody id="table">
+
+            </tbody>
+        </table>
+    </div>
+    {% block script %}
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: '{{ path('admin_blog_post_findAll') }}',
+                    success: function (data) {
+                        $('#table').html(data.vue);
+                    }
+                });
+
+                $('#save').click(function() {
+                    $.({
+                        type: 'POST',
+                        dataType: 'json',
+                        url: '{{ path('admin_blog_post_add') }}',
+                        success: function(data) {
+                            $('#table').html(data.vue);
+                        }
+                    })
+                })
+            });
+        </script>
+    {% endblock %}
+{% endblock %}
+

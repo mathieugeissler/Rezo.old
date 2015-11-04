@@ -1,3 +1,29 @@
 admin_homepage:
     path:     /
     defaults: { _controller: AdminBundle:Default:index }
+
+admin_blog_post:
+    path:     /blog/post
+    defaults: { _controller: AdminBundle:AdminPost:index }
+
+admin_blog_post_add:
+    path:     /blog/post/add
+    defaults: { _controller: AdminBundle:AdminPost:add }
+
+admin_blog_post_edit:
+    path:     /blog/post/{id}/edit
+    defaults: { _controller: AdminBundle:AdminPost:edit }
+    requirements:
+        id: \d+
+
+admin_blog_post_delete:
+    path:     /blog/post/{id}/delete
+    defaults: { _controller: AdminBundle:AdminPost:delete }
+    requirements:
+        id: \d+
+
+admin_blog_post_findAll:
+    path: /blog/post/findall
+    defaults: { _controller: AdminBundle:AdminPost:findAll }
+    requirements:
+        methods: POST

@@ -8,19 +8,3 @@ blog_post_view:
     requirements:
         id: \d+
 
-blog_post_add:
-    path:     /post/add
-    defaults: { _controller: BlogBundle:Post:add }
-
-blog_post_edit:
-    path:     /post/{id}/edit
-    defaults: { _controller: BlogBundle:Post:edit }
-    requirements:
-        id: \d+
-
-blog_post_delete:
-    path:     /post/{id}/delete
-    defaults: { _controller: BlogBundle:Post:delete }
-    requirements:
-        id: \d+
-

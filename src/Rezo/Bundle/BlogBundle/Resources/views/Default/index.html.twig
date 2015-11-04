@@ -1,20 +1,12 @@
 {% extends "CoreBundle::layout.html.twig" %}
 {% block body %}
-<!-- Page Content -->
 <div class="container">
 
     <div class="row">
 
-        <!-- Blog Entries Column -->
         <div class="col-md-8">
 
-            <h1 class="page-header">
-                Page Heading
-                <small>Secondary Text</small>
-            </h1>
-
             {% for post in posts %}
-            <!-- First Blog Post -->
             <h2>
                 <a href="{{ path('blog_post_view', { id: post.id }) }}">{{ post.title }}</a>
             </h2>

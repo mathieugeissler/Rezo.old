@@ -1,0 +1,14 @@
+{% for post in posts %}
+    <tr>
+        <td>{{ post.id }}</td>
+        <td>{{ post.title }}</td>
+        <td>
+            <a href="{{ path('admin_blog_post_edit', { id: post.id }) }}">
+                <button type="button" class="btn btn-flat btn-info btn-sm btn-td">edit</button>
+            </a>
+            <a href="{{ path('admin_blog_post_delete', { id: post.id }) }}">
+                <button type="button" class="btn btn-flat btn-warning btn-sm btn-td">delete</button>
+            </a>
+        </td>
+    </tr>
+{% endfor %}
