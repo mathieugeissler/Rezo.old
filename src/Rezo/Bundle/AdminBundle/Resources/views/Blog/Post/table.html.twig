@@ -2,12 +2,14 @@
     <tr>
         <td>{{ post.id }}</td>
         <td>{{ post.title }}</td>
+        <td>author</td>
+        <td>Status</td>
         <td>
-            <a href="{{ path('admin_blog_post_edit', { id: post.id }) }}">
-                <button type="button" class="btn btn-flat btn-info btn-sm btn-td">edit</button>
+            <a href="{{ path('admin_blog_post', { id: post.id }) }}">
+                <button type="button" class="btn btn-info btn-sm btn-td">edit</button>
             </a>
-            <a href="{{ path('admin_blog_post_delete', { id: post.id }) }}">
-                <button type="button" class="btn btn-flat btn-warning btn-sm btn-td">delete</button>
+            <a href="{{ path('admin_blog_post', { id: post.id }) }}">
+                <button type="button" class="btn btn-warning btn-sm btn-td">delete</button>
             </a>
         </td>
     </tr>

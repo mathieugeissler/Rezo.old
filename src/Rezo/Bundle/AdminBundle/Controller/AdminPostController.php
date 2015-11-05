@@ -18,71 +18,29 @@ class AdminPostController extends Controller
         $post = new Post();
         $form = $this->createForm(new PostType(), $post);
 
-        /*$form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $post->setAuthor($user);
-            $em->persist($post);
-            $em->flush();
-
-            $this->addFlash('info', 'Ajout effectuée');
-        }
-
-        $posts = $em->getRepository("BlogBundle:Post")->findAll();*/
         if($request->isXmlHttpRequest()) {
-            var_dump($request);
-        }
-        return $this->render(
-            'AdminBundle:Blog/Post:edit.html.twig',
-            array(
-                'form' => $form->createView(),
-                'action' => "Add",
-            )
-        );
-    }
+            $form->handleRequest($request);
 
-    public function addAction(Request $request)
-    {
+            $post->setAuthor($user->getId());
 
-    }
-
-    public function editAction(
-        Post $post,
-        Request $request,
-        $id
-    ) {
-        $em = $this->getDoctrine()->getManager();
-
-        $form = $this->createForm(new PostType(), $post);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($post);
             $em->flush();
 
-            $this->addFlash('info', 'Edition effectuée');
+            return new JsonResponse($post);
         }
-
-        $posts = $em->getRepository("BlogBundle:Post")->findAll();
 
         return $this->render(
             'AdminBundle:Blog/Post:edit.html.twig',
             array(
                 'form' => $form->createView(),
-                'action' => "Edit",
-                'id' => $id,
-                'posts' => $posts,
             )
         );
-
     }
 
-    public function deleteAction($id)
-    {
 
-    }
-
+    /** Return all Posts
+     * @return JsonResponse
+     */
     public function findallAction(){
         $em = $this->getDoctrine()->getManager();
         $posts = $em->getRepository("BlogBundle:Post")->findAll();

@@ -26,7 +26,8 @@ class PostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Rezo\Bundle\BlogBundle\Entity\Post'
+            'data_class' => 'Rezo\Bundle\BlogBundle\Entity\Post',
+            'attr' => ['id' => 'PostType']
         ));
     }
 

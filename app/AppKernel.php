@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             
             new FOS\UserBundle\FOSUserBundle(),
+            new Avanzu\AdminThemeBundle\AvanzuAdminThemeBundle(),
             
             new Rezo\Bundle\BlogBundle\BlogBundle(),
             new Rezo\Bundle\CoreBundle\CoreBundle(),

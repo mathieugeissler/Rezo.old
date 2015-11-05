@@ -1,0 +1,27 @@
+<div class="overlay overlay-boxify">
+    <nav>
+        <ul>
+            <li><a href="#profil"><i class="fa fa-user"></i>Profil</a></li>
+            <li><a href="#projets"><i class="fa fa-code-fork"></i>Projets</a></li>
+        </ul>
+        <ul>
+            <li><a href="#competences"><i class="fa fa-code"></i>Compétences</a></li>
+            <li><a href="#experiences"><i class="fa fa-flask"></i>Expériences</a></li>
+        </ul>
+        <ul>
+            <li><a href="#formations"><i class="fa fa-graduation-cap"></i>Formations</a></li>
+            <li><a href="#contact"><i class="fa fa-envelope-o"></i>Contact</a></li>
+        </ul>
+        {% if app.user %}
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <ul>
+                    <li><a href="{{ path('admin_homepage') }}"><i class="fa fa-lock"></i>Admin</a></li>
+                </ul>
+            {% endif %}
+        {% else %}
+            <ul>
+                <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-sign-in"></i>Login</a></li>
+            </ul>
+        {% endif %}
+    </nav>
+</div>
