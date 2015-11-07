@@ -15,8 +15,17 @@ admin_blog_post:
     path:     /blog/post
     defaults: { _controller: AdminBundle:AdminPost:index }
 
-admin_blog_post_findAll:
-    path: /blog/post/findall
-    defaults: { _controller: AdminBundle:AdminPost:findAll }
+admin_blog_post_edit:
+    path: /blog/post/{id}/edit
+    defaults: { _controller: AdminBundle:AdminPost:edit }
+    requirements:
+        id: \d+
+        methods: POST
+    options:
+        expose: true
+
+admin_blog_post_load:
+    path: /blog/post/load
+    defaults: { _controller: AdminBundle:AdminPost:load }
     requirements:
         methods: POST

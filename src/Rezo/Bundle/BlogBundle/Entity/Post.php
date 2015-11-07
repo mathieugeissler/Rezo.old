@@ -3,7 +3,6 @@
 namespace Rezo\Bundle\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Rezo\Bundle\UserBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -14,7 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Post
 {
-
     /**
      * @var integer
      *
@@ -48,8 +46,9 @@ class Post
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Rezo\Bundle\UserBundle\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
+     * @var int
+     *
+     * @ORM\Column(name="author", type="integer", length=11)
      */
     private $author;
 
@@ -141,16 +140,14 @@ class Post
         return $this->date;
     }
 
-
-
     /**
      * Set author
      *
-     * @param User $author
+     * @param string $author
      *
      * @return Post
      */
-    public function setAuthor(User $author)
+    public function setAuthor($author)
     {
         $this->author = $author;
 
@@ -160,7 +157,7 @@ class Post
     /**
      * Get author
      *
-     * @return User
+     * @return string
      */
     public function getAuthor()
     {

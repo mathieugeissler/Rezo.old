@@ -1,0 +1,140 @@
+{% extends 'AvanzuAdminThemeBundle:layout:base-layout.html.twig' %}
+
+{% block page_title %} Posts {% endblock %}
+{% block page_subtitle %} control {% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Posts list</h3>
+
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i
+                                    class="fa fa-times"></i></button>
+                    </div>
+                    <!-- /.box-tools -->
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive">
+                    <div id="table">
+
+                    </div>
+                </div>
+                <!-- /.box-body -->
+                <div id="loadTable" class="overlay">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+            </div>
+        </div>
+        <!-- /.box -->
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">Add or edit a post</h3>
+                </div>
+                <div id="form">
+
+                </div>
+                <div id="loadForm" class="overlay">
+                    <i class="fa fa-refresh fa-spin"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+   {% block javascripts_inline %}
+       <script>
+           $(document).ready(function () {
+
+               loadPosts();
+
+               //Recup des posts
+               function loadPosts() {
+                   $.ajax({
+                       type: 'POST',
+                       dataType: 'json',
+                       url: '{{ path('admin_blog_post_load') }}',
+                       success: function (data) {
+                           $('#form').html(data.form);
+                           $('#table').html(data.table);
+                           $('#dataTable').DataTable({
+                               "dom": 't<"box-footer clearfix"p>',
+                               "columnDefs": [
+                                   {
+                                       "targets": -1,
+                                       "width": "15%",
+                                       "searchable": false,
+                                       "orderable": false,
+                                   },
+                                   {
+                                       "targets": 0,
+                                       "width": "10%",
+                                   },
+                               ]
+                           });
+
+                           $('[data-toggle="tooltip"]').tooltip();
+
+                           $('#loadTable').addClass('hidden');
+                           $('#loadForm').addClass('hidden');
+                           //Editer un post
+                           $('.editButton').click(function () {
+                               $('#loadForm').removeClass('hidden');
+                               var id = $(this).attr('id');
+                               var route = Routing.generate('admin_blog_post_edit', {id: id});
+                               getForm(this, route);
+                           });
+                       }
+                   });
+               }
+
+               function getForm(form, route) {
+                   $.ajax({
+                       type: 'POST',
+                       dataType: 'json',
+                       url: route,
+                       success: function (data) {
+                           $('#form').html(data.form);
+                           $('#loadForm').addClass('hidden');
+
+                           $('#submitForm').click(function () {
+                               $('#loadForm').removeClass('hidden');
+                               var form = $('#PostType');
+                               sendForm(form);
+                           });
+                       }
+                   });
+               }
+
+               function sendForm(form) {
+                   $.ajax({
+                       type: form.attr('method'),
+                       url: form.attr('action'),
+                       data: form.serialize(),
+                       success: function() {
+                           $('#loadForm').addClass('hidden');
+                            loadPosts();
+                       }
+                   });
+               }
+           });
+       </script>
+   {% endblock %}
+

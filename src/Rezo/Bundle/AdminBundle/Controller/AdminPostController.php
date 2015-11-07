@@ -10,47 +10,89 @@ use Rezo\Bundle\BlogBundle\Entity\Post;
 class AdminPostController extends Controller
 {
 
-    public function indexAction(Request $request)
+    public function indexAction()
     {
-
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
         $post = new Post();
         $form = $this->createForm(new PostType(), $post);
 
-        if($request->isXmlHttpRequest()) {
-            $form->handleRequest($request);
-
-            $post->setAuthor($user->getId());
-
-            $em->persist($post);
-            $em->flush();
-
-            return new JsonResponse($post);
-        }
-
         return $this->render(
-            'AdminBundle:Blog/Post:edit.html.twig',
-            array(
-                'form' => $form->createView(),
-            )
+            'AdminBundle:Blog/Post:index.html.twig'
         );
     }
 
+    public function editAction(Request $request, Post $post, $id)
+    {
+        if ($request->isXmlHttpRequest()) {
+
+            $form = $this->createForm(
+                new PostType(),
+                $post,
+                array(
+                    'action' => $this->generateUrl(
+                        'admin_blog_post_edit',
+                        array(
+                            'id' => $id,
+                        )
+                    ),
+                )
+            );
+
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                $user = $this->getUser();
+                $em = $this->getDoctrine()->getManager();
+                $post->setAuthor($user);
+                $em->persist($post);
+                $em->flush();
+
+                return new JsonResponse(
+                    array(
+                        'message' => 'Success',
+                    ), 200
+                );
+            }
+
+            return new JsonResponse(
+                array(
+                    'form' => $this->renderView(
+                        'AdminBundle:Blog/Post:form.html.twig',
+                        array(
+                            'form' => $form->createView(),
+                        )
+                    ),
+                )
+            );
+        }
+        return false;
+    }
 
     /** Return all Posts
      * @return JsonResponse
      */
-    public function findallAction(){
+    public function loadAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $posts = $em->getRepository("BlogBundle:Post")->findAll();
 
-        return new JsonResponse(array(
-            'vue' => $this->renderView(
-                'AdminBundle:Blog/Post:table.html.twig', array(
-                    'posts' => $posts,
-                )
+        $post = new Post();
+        $form = $this->createForm(new PostType(), $post);
+
+        return new JsonResponse(
+            array(
+                'table' => $this->renderView(
+                    'AdminBundle:Blog/Post:table.html.twig',
+                    array(
+                        'posts' => $posts,
+                    )
+                ),
+                'form' => $this->renderView(
+                    'AdminBundle:Blog/Post:form.html.twig',
+                    array(
+                        'form' => $form->createView(),
+                    )
+                ),
             )
-        ));
+        );
     }
 }
