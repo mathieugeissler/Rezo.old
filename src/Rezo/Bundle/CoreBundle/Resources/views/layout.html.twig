@@ -1,49 +1,57 @@
 <!DOCTYPE html>
-<html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<html lang="en" class="no-js">
 <head>
-    <meta charset="UTF-8"/>
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rezo by Mathieu Geissler</title>
+    <meta name="description" content="Online CV and blog"/>
+    <meta name="keywords" content="cv, blog, mathieu geissler"/>
+    <meta name="author" content="Mathieu Geissler"/>
 
+    <!-- Bootstrap -->
+    <script src='../Resources/public/js/modernizr.custom.js'></script>
     {% block stylesheets %}
         {% stylesheets
         '@CoreBundle/Resources/public/css/bootstrap.min.css'
-        '@CoreBundle/Resources/public/css/material.min.css'
-        '@CoreBundle/Resources/public/css/ripples.min.css'
-        '@CoreBundle/Resources/public/css/roboto.min.css'
-        '@CoreBundle/Resources/public/css/core.css'
+        '@CoreBundle/Resources/public/css/jquery.fancybox.css'
+        '@CoreBundle/Resources/public/css/flickity.css'
+        '@CoreBundle/Resources/public/css/animate.css'
+        '@CoreBundle/Resources/public/css/styles.css'
+        '@CoreBundle/Resources/public/css/queries.css'
         filter='cssrewrite' output='css/compiled/app.css' %}
         <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
     {% endblock %}
-
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+    <!-- Facebook and Twitter integration -->
+    <meta property="og:title" content=""/>
+    <meta property="og:image" content=""/>
+    <meta property="og:url" content=""/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:description" content=""/>
+    <meta name="twitter:title" content=""/>
+    <meta name="twitter:image" content=""/>
+    <meta name="twitter:url" content=""/>
+    <meta name="twitter:card" content=""/>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-<body>
 <!-- Navigation -->
-<div class="navbar navbar-default navbar-fixed-top">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="{{ path('core_homepage') }}">Rezo</a>
-    </div>
-    <div class="navbar-collapse collapse navbar-responsive-collapse">
-        <ul class="nav navbar-nav">
-            <li><a href="{{ path('blog_homepage') }}">Blog</a></li>
-        </ul>
-        <form class="navbar-form navbar-left">
-            <input type="text" class="form-control col-lg-8" placeholder="Search">
-        </form>
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a href="user/login">Login</a>
-            </li>
-        </ul>
-    </div>
-</div>
-
 {% block flash %}
     {% for message in app.session.flashbag.get('info') %}
         <p>Message : {{ message }}</p>
@@ -51,17 +59,25 @@
 {% endblock %}
 
 {% block body %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block menu %}{% endblock %}
 
 {% block javascripts %}
     {% javascripts
+    '@CoreBundle/Resources/public/js/min/toucheffects-min.js'
     '@CoreBundle/Resources/public/js/jquery.min.js'
+    '@CoreBundle/Resources/public/js/flickity.pkgd.min.js'
+    '@CoreBundle/Resources/public/js/jquery.fancybox.pack.js'
+    '@CoreBundle/Resources/public/js/retina.js'
+    '@CoreBundle/Resources/public/js/waypoints.min.js'
     '@CoreBundle/Resources/public/js/bootstrap.min.js'
-    '@CoreBundle/Resources/public/js/material.min.js'
-    '@CoreBundle/Resources/public/js/ripples.min.js'
-    '@CoreBundle/Resources/public/js/core.js'
+    '@CoreBundle/Resources/public/js/scripts.js'
     output='js/compiled/app.js' %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
+{% endblock %}
+
+{% block script %}
 {% endblock %}
 </body>
 </html>
